@@ -1,5 +1,5 @@
 # esx_cratedelivery
-Laptops around the island of San Andreas connected to the dark web. Place your order and quickly pick it up before someone else does! There's only some coordinates so don't forget to fill the config up with coordinates.
+Laptops around the island of San Andreas connected to the dark web. You can access these laptops to order weapons, place your order and quickly pick it up before someone else does! Upon placing an order a global message will be sent to all players, to spice it all up.
 ![script preview](https://i.imgur.com/JqKPt60.jpg)
 
 ### Reqirements
