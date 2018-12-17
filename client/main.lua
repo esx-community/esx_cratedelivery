@@ -7,20 +7,21 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 
-	RequestModel("prop_laptop_01a")
-	while not HasModelLoaded("prop_laptop_01a") do
-		Citizen.Wait(100)
-	end
 
 	for k, v in pairs(Config.DeliveryShops) do
-		local shopObject = CreateObject(GetHashKey('prop_laptop_01a'), v.x, v.y, v.z, true, true, true)
-		SetObjectTargettable(shopObject, true)
-		SetEntityHeading(shopObject, v.heading)
-
-		SetEntityAsMissionEntity(shopObject, true, true)
-		FreezeEntityPosition(shopObject, true)
-
-		table.insert(objectList, shopObject)
+		ESX.Game.SpawnObject('prop_laptop_01a', {
+			x = v.x,
+			y = v.y,
+			z = v.z
+		}, function(shopObject)
+			SetObjectTargettable(shopObject, true)
+			SetEntityHeading(shopObject, v.heading)
+	
+			SetEntityAsMissionEntity(shopObject, true, true)
+			FreezeEntityPosition(shopObject, true)
+	
+			table.insert(objectList, shopObject)
+		end)
 	end
 end)
 
@@ -37,7 +38,7 @@ function OpenDeliveryShop()
 
 	for i=1, #Config.AvailableWeapons, 1 do
 		table.insert(elements, {
-			label = ('%s - <span style="color: green;">%s</span>'):format(ESX.GetWeaponLabel(Config.AvailableWeapons[i].weapon), _U('delivery_shop_item', Config.AvailableWeapons[i].price)),
+			label = ('%s - <span style="color: green;">%s</span>'):format(ESX.GetWeaponLabel(Config.AvailableWeapons[i].weapon), _U('delivery_shop_item', ESX.Math.GroupDigits(Config.AvailableWeapons[i].price))),
 			weapon = Config.AvailableWeapons[i].weapon,
 			price = Config.AvailableWeapons[i].price
 		})
