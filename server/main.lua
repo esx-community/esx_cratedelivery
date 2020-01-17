@@ -12,8 +12,12 @@ ESX.RegisterServerCallback('esx_cratedelivery:placeOrder', function(source, cb, 
 		return
 	end
 
-	if xPlayer.getMoney() >= price then
-		xPlayer.removeMoney(price)
+	local blackMoney = xPlayer.getAccount('black_money').money
+
+	if blackMoney >= price then
+		-- xPlayer.removeMoney(price)
+		xPlayer.removeAccountMoney('black_money', price)
+
 		TriggerClientEvent('esx:showAdvancedNotification', -1, _U('global_title'), _U('global_subject'), _U('global_msg', xPlayer.name, ESX.GetWeaponLabel(weapon)), 'CHAR_PROPERTY_PLANE_SCRAP_YARD', 9)
 		TriggerClientEvent('crateDrop', -1, weapon, ammo, false, 1000.0, dropPoint, 'yellow')
 		cb(true)
